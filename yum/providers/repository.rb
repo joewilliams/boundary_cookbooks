@@ -52,25 +52,20 @@ action :add do
       notifies :run, resources(:execute => "yum -q makecache"), :immediately
     end
 
+
+    log "what does the repo file look like?"
     execute "cat /etc/yum.repos.d/#{new_resource.repo_name}.repo"
+
+    log "is bprobe in yum list?"
     execute "yum list | grep bprobe"
 
-# default to 64bit
-  machine = "x86_64"
 
-  case node[:kernel][:machine]
-  when "x86_64"
-    machine = "x86_64"
-  when "i686"
-    machine = "i386"
-  when "i386"
-    machine = "i386"
-  end
+    log "try installing via 'yum_package'"
+    yum_package "bprobe"
 
-    yum_package "bprobe" do
-      arch node[:kernel][:machine]
-      version "1.0.0-1fi919"
-    end
+    log "try installing via yum command"
+    execute "yum -y install bprobe"
+
   end
 end
 

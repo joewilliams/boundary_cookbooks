@@ -54,7 +54,8 @@ action :add do
 
     execute "cat /etc/yum.repos.d/#{new_resource.repo_name}.repo"
     execute "yum list | grep bprobe"
-    execute "yum install bprobe"
+
+    package "bprobe"
   end
 end
 

@@ -67,7 +67,7 @@ action :add do
     machine = "i386"
   end
 
-    package "bprobe" do
+    yum_package "bprobe" do
       arch node[:kernel][:machine]
     end
   end

@@ -69,6 +69,7 @@ action :add do
 
     yum_package "bprobe" do
       arch node[:kernel][:machine]
+      version "1.0.0-1fi919"
     end
   end
 end

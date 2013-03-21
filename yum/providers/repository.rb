@@ -51,6 +51,9 @@ action :add do
                 })
       notifies :run, resources(:execute => "yum -q makecache"), :immediately
     end
+
+    execute "cat /etc/yum.repos.d/#{new_resource.repo_name}.repo"
+    execute "yum list | grep bprobe"
   end
 end
 

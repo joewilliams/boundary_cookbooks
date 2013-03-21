@@ -60,8 +60,8 @@ action :add do
     execute "yum list | grep bprobe"
 
 
-    log "try installing via 'yum_package'"
-    yum_package "bprobe"
+#    log "try installing via 'yum_package'"
+#    yum_package "bprobe"
 
     log "try installing via yum command"
     execute "yum -y install bprobe"

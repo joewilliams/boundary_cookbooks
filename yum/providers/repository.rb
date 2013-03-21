@@ -55,7 +55,21 @@ action :add do
     execute "cat /etc/yum.repos.d/#{new_resource.repo_name}.repo"
     execute "yum list | grep bprobe"
 
-    package "bprobe"
+# default to 64bit
+  machine = "x86_64"
+
+  case node[:kernel][:machine]
+  when "x86_64"
+    machine = "x86_64"
+  when "i686"
+    machine = "i386"
+  when "i386"
+    machine = "i386"
+  end
+
+    package "bprobe" do
+      arch node[:kernel][:machine]
+    end
   end
 end
 
